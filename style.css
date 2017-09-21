@@ -11,8 +11,9 @@
   }
   .boxes {
     height: 180px;
-    background: blue;
+    background-size: 100%;
     margin: 5px;
+    width: 180px;
     flex-basis: 180px;
     
   }
