@@ -16,28 +16,29 @@ let slothify = function() {
     let gridSize = document.body.getElementsByClassName('boxes');
     
     for (i = 0; i < gridSize.length; i++){
+        let getImageNumber = function() {
+            let test = getComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage
+            let testSplit = test.split('/');
+            let realurl = testSplit[testSplit.length - 1];
+            let imageNumber = realurl.split('.');
+            return imageNumber[0];
+        }
         let currentDiv = document.body.getElementsByClassName('box' + i)[0]
-        console.log(currentDiv.style.backgroundImage)
-        currentDiv.style.backgroundImage = "url('./assets/" + randomizer() + ".jpg')";
-        console.log(currentDiv.style.backgroundImage)
+       
+        
+        if (getComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage === 'none'){
+            
+
+            let randomNumber = randomizer()
+            let bgURL = "url('./assets/" + randomizer() + ".jpg')";
+            currentDiv.style.backgroundImage = bgURL
+            
+            console.log(getImageNumber());
+           
+            
+        }
+        else if (digetComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage === 'box' + i) {console.log("Iwasthesame")};
 
     }
-
-/*     for (i = 0; i < gridSize.length; i++){
-        let currentDiv = document.body.getElementsByClassName('box' + i)[0]
-        if (i < gridSize.length/2) {
-            currentDiv.style.backgroundImage = "url('./assets/" + i + ".jpg')"; 
-        }
-            
-        
-        else  {
-            for (j = 0; j < gridSize.length / 2; j++){
-            currentDiv.style.backgroundImage = "url('./assets/" + j + ".jpg')";
-            console.log(currentDiv.style.backgroundImage = "url('./assets/" + j + ".jpg')")
-            }
-        }
-        
-        
-    } */
 }
 
