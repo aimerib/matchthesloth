@@ -7,22 +7,55 @@ let createGrid = function(sizeOfGrid) {
     };
 };
 
-let randomizer = function() {
-    let gridSize = document.body.getElementsByClassName('boxes');
-    return Math.floor(Math.random() * gridSize.length/2);
+let randomizer =  a => Math.floor(Math.random() * a)
+
+let createArray = (x,y) => {
+    let array = [];
+    for (i = 0; i < x ; i++) {
+        array.push([]);
+        for (j = 0; j < y; j++){
+            array[i][j]=0;
+            
+        } 
+    }
+    return array
 }
 
-let slothify = function() {
+
+
+
+let test = createArray(4,4);
+let counter = test[0].length * test.length
+console.log(counter);
+while (counter > 0) {
+    console.log("test");
+    counter--
+}
+
+
+let slothify = () => {
     let gridSize = document.body.getElementsByClassName('boxes');
+    let counter = 0
     
-    for (i = 0; i < gridSize.length; i++){
-        let getImageNumber = function() {
-            let test = getComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage
-            let testSplit = test.split('/');
-            let realurl = testSplit[testSplit.length - 1];
-            let imageNumber = realurl.split('.');
-            return imageNumber[0];
-        }
+/*     for (i = 0; i < gridSize.length; i++){
+        let currentGridPosition = randomizer(gridSize.length);
+        let currentDiv = document.body.getElementsByClassName('box' + currentGridPosition)[0]
+        console.log(currentDiv);
+        console.log(currentGridPosition);
+   
+    } */
+    
+
+
+
+
+
+
+
+
+    
+    /* for (i = 0; i < gridSize.length; i++){
+        
         let currentDiv = document.body.getElementsByClassName('box' + i)[0]
        
         
@@ -37,8 +70,17 @@ let slothify = function() {
            
             
         }
-        else if (digetComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage === 'box' + i) {console.log("Iwasthesame")};
+        
 
-    }
+    } */
 }
 
+
+
+let getImageNumber = function() {
+    let test = getComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage
+    let testSplit = test.split('/');
+    let realurl = testSplit[testSplit.length - 1];
+    let imageNumber = realurl.split('.');
+    return imageNumber[0];
+}
