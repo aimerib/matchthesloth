@@ -10,7 +10,7 @@ let createGrid = function(sizeOfGrid) {
 let randomizer = function() {
     let gridSize = document.body.getElementsByClassName('boxes');
     return Math.floor(Math.random() * gridSize.length/2);
-}
+};
 
 let slothify = function() {
     let gridSize = document.body.getElementsByClassName('boxes');
