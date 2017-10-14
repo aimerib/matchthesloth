@@ -8,12 +8,46 @@
     position: relative;
     display: flex;
     flex-flow: row wrap;
+    perspective: 800px;
   }
-  .boxes {
+  .frontFace {
     height: 180px;
     background-size: 100%;
     margin: 5px;
     width: 180px;
     flex-basis: 180px;
+    background-color: red;
+    position: absolute;
+    z-index: 1;
+  
     
+  }
+  .backFace {
+    height: 180px;
+    background-size: 100%;
+    margin: 5px;
+    width: 180px;
+    flex-basis: 180px;
+    position: absolute;
+    visibility: hidden;
+  
+
+  }
+
+ 
+.box{
+  height: 180px;
+  background-size: 100%;
+  margin: 5px;
+  width: 180px;
+  flex-basis: 180px;
+position: relative;
+
+}    
+    
+  
+  .boxes:hover {
+    backface-visibility: hidden;
+    transition: 0.9s;
+    transform: rotatey(180deg);
   }

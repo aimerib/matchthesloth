@@ -43,27 +43,35 @@ const createBoard = function (){
     return board;
 };
 
-
 const createGrid = function(sizeOfGrid) {
-    for (i = 0; i < sizeOfGrid; i++){
-        const newDiv = document.createElement('div');
-        newDiv.classList.add('boxes');
-        newDiv.classList.add('box' + i);
-        document.body.getElementsByClassName('container')[0].appendChild(newDiv);
+    for (let i = 0; i < sizeOfGrid; i++){
+        const card = document.createElement('div');
+        const newFrontDiv = document.createElement('div');
+        const newBackDiv = document.createElement('div');
+        newFrontDiv.classList.add('frontFace');
+        newBackDiv.classList.add('backFace');
+        newBackDiv.classList.add('backFaceflipped');
+        newBackDiv.classList.add('backFace' + i);
+        card.classList.add('box');
+        document.body.getElementsByClassName('container')[0].appendChild(card);
+
+        document.body.getElementsByClassName('box')[i].appendChild(newFrontDiv);
+        document.body.getElementsByClassName('box')[i].appendChild(newBackDiv);
     }
 };
+ 
 
 const slothify = () => {
-    const gridSize = document.body.getElementsByClassName('boxes');
+    const gridSize = document.body.getElementsByClassName('backFace');
     const board = createBoard();
         
     for (let i = 0; i < gridSize.length; i++){
-        const currentDiv = document.body.getElementsByClassName('box' + i )[0];
+        const currentDiv = document.body.getElementsByClassName('backFace' + i )[0];
         
-        if (getComputedStyle(document.body.getElementsByClassName('box' + i)[0])
+        if (getComputedStyle(document.body.getElementsByClassName('backFace' + i)[0])
             .backgroundImage === 'none'){
-                const bgURL = 'url("./assets/' + board[i].number + '.jpg")';
-                currentDiv.style.backgroundImage = bgURL;
-            }
+            const bgURL = 'url("./assets/' + board[i].number + '.jpg")';
+            currentDiv.style.backgroundImage = bgURL;
+        }
     } 
 };
