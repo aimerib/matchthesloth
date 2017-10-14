@@ -1,86 +1,69 @@
-const createGrid = function(sizeOfGrid) {
-    for (i = 0; i < sizeOfGrid; i++){
-        const newDiv = document.createElement("div")
-        newDiv.classList.add("boxes");
-        newDiv.classList.add("box" + i);
-        document.body.getElementsByClassName('container')[0].appendChild(newDiv);
-    };
+const shuffle = function (array) {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+  
+    while (0 !== currentIndex) {
+  
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+  
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    }
+  
+    return array;
 };
 
-const randomizer =  a => Math.floor(Math.random() * a)
+const generateGameMap = function(boardSize = 16){
+    const size = boardSize;            
+    
+    const halfSize = size/2;
+    const arrayMap1 = shuffle(Array.from(Array(halfSize).keys()));
+    const arrayMap2 = shuffle(Array.from(Array(halfSize).keys()));
+    let gameMap = arrayMap1.concat(arrayMap2);
+    return gameMap;
+};
 
-const createArray = (x,y) => {
-    const array = [];
-    for (i = 0; i < x ; i++) {
-        array.push([]);
-        for (j = 0; j < y; j++){
-            array[i][j]=0;
-            
-        } 
+const slothCard = function() {
+    this.number = 0,
+    this.isFaceDown = true;
+};
+
+const createBoard = function (){
+    const board = [];
+    const gameMap = generateGameMap();
+    for (let i = 0; i < gameMap.length; i++){
+        let sloth1 = new slothCard;
+        sloth1.number = gameMap[i];
+        board.push(sloth1);
+
     }
-    return array
-}
+    return board;
+};
 
 
-
-
-const test = createArray(4,4);
-const counter = test[0].length * test.length
-console.log(counter);
-while (counter > 0) {
-    console.log("test");
-    counter--
-}
-
+const createGrid = function(sizeOfGrid) {
+    for (i = 0; i < sizeOfGrid; i++){
+        const newDiv = document.createElement('div');
+        newDiv.classList.add('boxes');
+        newDiv.classList.add('box' + i);
+        document.body.getElementsByClassName('container')[0].appendChild(newDiv);
+    }
+};
 
 const slothify = () => {
     const gridSize = document.body.getElementsByClassName('boxes');
-    const counter = 0
-    
-/*     for (i = 0; i < gridSize.length; i++){
-        const currentGridPosition = randomizer(gridSize.length);
-        const currentDiv = document.body.getElementsByClassName('box' + currentGridPosition)[0]
-        console.log(currentDiv);
-        console.log(currentGridPosition);
-   
-    } */
-    
-
-
-
-
-
-
-
-
-    
-    /* for (i = 0; i < gridSize.length; i++){
+    const board = createBoard();
         
-        const currentDiv = document.body.getElementsByClassName('box' + i)[0]
-       
+    for (let i = 0; i < gridSize.length; i++){
+        const currentDiv = document.body.getElementsByClassName('box' + i )[0];
         
-        if (getComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage === 'none'){
-            
-
-            const randomNumber = randomizer()
-            const bgURL = "url('./assets/" + randomizer() + ".jpg')";
-            currentDiv.style.backgroundImage = bgURL
-            
-            console.log(getImageNumber());
-           
-            
-        }
-        
-
-    } */
-}
-
-
-
-const getImageNumber = function() {
-    const test = getComputedStyle(document.body.getElementsByClassName('box' + i)[0]).backgroundImage
-    const testSplit = test.split('/');
-    const realurl = testSplit[testSplit.length - 1];
-    const imageNumber = realurl.split('.');
-    return imageNumber[0];
-}
+        if (getComputedStyle(document.body.getElementsByClassName('box' + i)[0])
+            .backgroundImage === 'none'){
+                const bgURL = 'url("./assets/' + board[i].number + '.jpg")';
+                currentDiv.style.backgroundImage = bgURL;
+            }
+    } 
+};
