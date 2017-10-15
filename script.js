@@ -1,3 +1,6 @@
+
+
+
 const shuffle = function (array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -45,33 +48,49 @@ const createBoard = function (){
 
 const createGrid = function(sizeOfGrid) {
     for (let i = 0; i < sizeOfGrid; i++){
+        const cardContainer = document.createElement('div');
         const card = document.createElement('div');
-        const newFrontDiv = document.createElement('div');
-        const newBackDiv = document.createElement('div');
-        newFrontDiv.classList.add('frontFace');
-        newBackDiv.classList.add('backFace');
-        newBackDiv.classList.add('backFaceflipped');
-        newBackDiv.classList.add('backFace' + i);
-        card.classList.add('box');
-        document.body.getElementsByClassName('container')[0].appendChild(card);
+        const frontDiv = document.createElement('div');
+        const backDiv = document.createElement('div');
 
-        document.body.getElementsByClassName('box')[i].appendChild(newFrontDiv);
-        document.body.getElementsByClassName('box')[i].appendChild(newBackDiv);
+        cardContainer.classList.add('cardContainer');
+        card.classList.add('card');
+        backDiv.classList.add('backFace');
+        backDiv.classList.add('backFace' + i);
+        frontDiv.classList.add('frontFace');
+
+        document.body.getElementsByClassName('container')[0].appendChild(cardContainer);
+        document.body.getElementsByClassName('cardContainer')[i].appendChild(card);
+        document.body.getElementsByClassName('card')[i].appendChild(frontDiv);
+        document.body.getElementsByClassName('card')[i].appendChild(backDiv);
     }
 };
  
 
 const slothify = () => {
-    const gridSize = document.body.getElementsByClassName('backFace');
+    const emptyCards = document.body.getElementsByClassName('backFace');
     const board = createBoard();
+    
         
-    for (let i = 0; i < gridSize.length; i++){
+    for (let i = 0; i < emptyCards.length; i++){
         const currentDiv = document.body.getElementsByClassName('backFace' + i )[0];
+        const isBackFaceEmpty = () => 
+            getComputedStyle(currentDiv).backgroundImage === 'none' ? true : false;
+
         
-        if (getComputedStyle(document.body.getElementsByClassName('backFace' + i)[0])
-            .backgroundImage === 'none'){
+        
+        if (isBackFaceEmpty()){
             const bgURL = 'url("./assets/' + board[i].number + '.jpg")';
             currentDiv.style.backgroundImage = bgURL;
         }
     } 
 };
+
+createGrid(16);
+slothify();
+
+document.body.getElementsByClassName('container')[0].addEventListener('click', compareCards);
+function compareCards (el){
+    const flippedCards = document.body.getElementsByClassName('flipped');
+    el.path[1].classList.add('flipped');
+}
