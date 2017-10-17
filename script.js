@@ -68,6 +68,7 @@ const createGrid = function(sizeOfGrid) {
  
 
 const slothify = () => {
+    
     const emptyCards = document.body.getElementsByClassName('backFace');
     const board = createBoard();
     
@@ -89,8 +90,44 @@ const slothify = () => {
 createGrid(16);
 slothify();
 
-document.body.getElementsByClassName('container')[0].addEventListener('click', compareCards);
-function compareCards (el){
-    const flippedCards = document.body.getElementsByClassName('flipped');
-    el.path[1].classList.add('flipped');
-}
+
+const container = document.body.getElementsByClassName('container')[0];
+let counter = 0;
+container.addEventListener('click', (el) => {
+        console.log(el);
+    const isNotContainer = () => el.path[0].classList[0] !== 'container' ? true : false;
+    const isNotCardContainer = () => el.path[0].classList[0] !== 'cardContainer' ? true : false;
+    const isNotFlipped = () => el.path[1].classList[1] !== 'flipped' ? true : false;
+    if(isNotContainer()&& isNotCardContainer() && isNotFlipped()){
+        el.path[1].classList.add('flipped');
+        counter++;
+    }
+    if(counter >= 2){
+        setTimeout(checkMatch, 1000);
+    }
+});
+
+const unflip = function (card1, card2) {
+    card1.classList.remove('flipped');
+    card2.classList.remove('flipped');
+};
+const hideCard = function (card1, card2) {
+    card1.classList.add('hidden');
+    card2.classList.add('hidden');
+};
+
+const checkMatch = function (){
+    const card1 = document.body.getElementsByClassName('flipped')[0];
+    const card2 = document.body.getElementsByClassName('flipped')[1];
+    const isMatch = () => card1.children[1].style.backgroundImage === card2.children[1].style.backgroundImage ? true : false;
+    if (isMatch()){
+        unflip(card1, card2);
+        hideCard(card1, card2);
+        counter = 0;
+    }
+    else {
+        unflip(card1, card2);
+        counter = 0;
+    }
+    
+};
