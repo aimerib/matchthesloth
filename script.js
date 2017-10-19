@@ -71,7 +71,7 @@ const slothify = () => {
     
     const emptyCards = document.body.getElementsByClassName('backFace');
     const board = createBoard();
-    
+    const hiddenCards = document.body.getElementsByClassName('hidden');
         
     for (let i = 0; i < emptyCards.length; i++){
         const currentDiv = document.body.getElementsByClassName('backFace' + i )[0];
@@ -85,6 +85,10 @@ const slothify = () => {
             currentDiv.style.backgroundImage = bgURL;
         }
     } 
+    for (let i = 0; i < hiddenCards.length; i++){
+        console.log('hi');
+        hiddenCards[i].classList.remove('hidden');
+    }
 };
 
 createGrid(16);
@@ -94,7 +98,6 @@ slothify();
 const container = document.body.getElementsByClassName('container')[0];
 let counter = 0;
 container.addEventListener('click', (el) => {
-        console.log(el);
     const isNotContainer = () => el.path[0].classList[0] !== 'container' ? true : false;
     const isNotCardContainer = () => el.path[0].classList[0] !== 'cardContainer' ? true : false;
     const isNotFlipped = () => el.path[1].classList[1] !== 'flipped' ? true : false;
