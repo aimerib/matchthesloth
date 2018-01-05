@@ -1,6 +1,3 @@
-
-
-
 const shuffle = function (array) {
     let currentIndex = array.length, temporaryValue, randomIndex;
   
